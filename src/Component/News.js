@@ -4,62 +4,68 @@ import Newsitem from './Newsitem'
 
 export class News extends Component {
 
-  articles=[
 
-    {
-      "source": {
-          "id": "google-news",
-          "name": "Google News"
-      },
-      "author": "Yahoo Sports",
-      "title": "USA vs. Australia score, live updates: A'ja Wilson and Co. look to advance to Paris Olympics gold medal game - Yahoo Sports",
-      "description": null,
-      "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNWk1EanFMMXdjVFlXZkhTQWpMelFCVUIxdmlvUnhVVWpObzZOeVk5QTBFcFlGeTJsTnd2WUJOYXR5Q1VzRXRORUVrYkRSZEVuQkgxVEpEMlRob2hzSGRYbWtMNkpjZ09wMEZ2QlpwYmtQRnpfR2RwRHJHR0RkNXdXdzdFMEhlQ3NtSE5qRHVkeFJZbzFWVmpNamxxa0hRMVRzTkJKeWtianZYbmZvdk1IaWtxSVpFcGJkc2xRaVZZcDZ3eWZ6Wkp0Ql9aX0pEcnZFbERVV1NtaEFvN1RkMEJsOFhR?oc=5",
-      "urlToImage": null,
-      "publishedAt": "2024-08-09T16:40:52Z",
-      "content": null
-  },
-  {
-      "source": {
-          "id": "google-news",
-          "name": "Google News"
-      },
-      "author": "The Washington Post",
-      "title": "Why a growing mpox outbreak has the world worried again - The Washington Post",
-      "description": null,
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOV01sYjA5LXF0MkJINlhHa2h6V29fMTB6ejJCQWlBZXpLOVVseDF3U2paallQdjFjbWdnQ2piNjdFTzlqU0tyRE1LVDk1M3NTZUhNSDBHQkJ4RzR5VHJmQ0hMSlh0Zl9JaVNlNXFJb29jdjA2RVM0QnhrSnJPc2hoRzhiQmNNUEo1?oc=5",
-      "urlToImage": null,
-      "publishedAt": "2024-08-09T16:26:29Z",
-      "content": null
-  },
-  ]
-
-  constructor()
-  {
+  constructor() {
     super();
     console.log("hi");
-    this.state={
-      
+    this.state = {
+      articles: [],
+      loading: false,
+      page: 1
     }
   }
 
+  async componentDidMount() {
+    let url = "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=7ca5aa28a57f40e29826367174fa0c6f"
+    let data = await fetch(url);
+    let parseddata = await data.json();
+    this.setState({ articles: parseddata.articles })
+  }
+
+  handlenext = async () => {
+    let url = `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=7ca5aa28a57f40e29826367174fa0c6f&page=${this.state.page + 1}`;
+    let data = await fetch(url);
+    let parseddata = await data.json()
+    this.setState({
+      page: this.state.page + 1,
+      articles: parseddata.articles
+    })
+
+  }
+
+  handleprev = async () => {
+    let url = `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=7ca5aa28a57f40e29826367174fa0c6f&page=${this.state.page - 1}`;
+    let data = await fetch(url);
+    let parseddata = await data.json()
+    this.setState({
+      page: this.state.page - 1,
+      articles: parseddata.articles
+
+    })
+  }
 
   render() {
     return (
       <div className="container my-3">
         <div className="row">
-          <div className="col-md-4">
 
-            <Newsitem />
-          </div>
-          <div className="col-md-4">
+          {this.state.articles.map((element) => {
+            return <div className="col-md-4" key={element.url} >
+ 
+              <Newsitem title={element.title ? element.title : ""} description={element.description ? element.description.slice(0, 80) : ""} imgurl={element.urlToImage} newsurl={element.url} />
+              
+              <br></br>
+            </div>
 
-            <Newsitem />
-          </div>
-          <div className="col-md-4">
+          })}
+          <div className="conatiner d-flex justify-content-between">
 
-            <Newsitem  title="mytitle" description="this is a news"/>
+            <button disabled={this.state.page <= 1} type="button" className="btn btn-dark" onClick={this.handleprev}>Previous</button>
+
+            <button type="button" className="btn btn-dark" onClick={this.handlenext}>Next</button>
+
           </div>
+
 
         </div>
       </div>
