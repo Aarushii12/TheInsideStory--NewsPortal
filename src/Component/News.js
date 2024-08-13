@@ -10,14 +10,16 @@ export class News extends Component {
     category: 'general'
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     console.log("hi");
     this.state = {
       articles: [],
       loading: false,
       page: 1
     }
+    document.title = `${this.props.category}`;
+
   }
 
   async componentDidMount() {
@@ -63,15 +65,17 @@ export class News extends Component {
   render() {
     return (
       <div className="container my-3">
+        <h1 className='text-center' style={{ margin: '35px 0px' }}> INSIDE STORY-Top Headlines from {this.props.category}</h1>
+
 
         {this.state.loading && <Spinner />}
         <div className="row">
 
           {!this.state.loading && this.state.articles.map((element) => {
             return <div className="col-md-4" key={element.url} >
-<br></br>
+              <br></br>
               <Newsitem title={element.title ? element.title.slice(0, 42) : ""} description={element.description ? element.description.slice(0, 80) : ""} imgurl={element.urlToImage} newsurl={element.url} author={element.author} date={element.publishedAt} />
-<br></br>
+              <br></br>
             </div>
 
           })}
