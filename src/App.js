@@ -31,12 +31,12 @@ export default class App extends Component {
         <div>
           <Navbar />
           <Routes>
-            <Route path="/" element={<News setProgress={this.setProgress} key={1} pageSize={9} country="in" category="general" />} />
-            <Route path="/business" element={<News setProgress={this.setProgress} key={2} pageSize={9} country="in" category="business" />} />
-            <Route path="/health" element={<News setProgress={this.setProgress} key={3} pageSize={9} country="in" category="health" />} />
-            <Route path="/sports" element={<News setProgress={this.setProgress} key={4} pageSize={9} country="in" category="sports" />} />
-            <Route path="/science" element={<News setProgress={this.setProgress} key={5} pageSize={9} country="in" category="science" />} />
-            <Route path="/technology" element={<News setProgress={this.setProgress} key={9} pageSize={9} country="in" category="technology" />} />
+            <Route path="/" element={<News setProgress={this.setProgress}  apikey={this.apikey} key={1} pageSize={9} country="in" category="general" />} />
+            <Route path="/business" element={<News setProgress={this.setProgress}  apikey={this.apikey} key={2} pageSize={9} country="in" category="business" />} />
+            <Route path="/health" element={<News setProgress={this.setProgress}  apikey={this.apikey} key={3} pageSize={9} country="in" category="health" />} />
+            <Route path="/sports" element={<News setProgress={this.setProgress}  apikey={this.apikey} key={4} pageSize={9} country="in" category="sports" />} />
+            <Route path="/science" element={<News setProgress={this.setProgress}  apikey={this.apikey} key={5} pageSize={9} country="in" category="science" />} />
+            <Route path="/technology" element={<News setProgress={this.setProgress}  apikey={this.apikey} key={9} pageSize={9} country="in" category="technology" />} />
           </Routes>
         </div>
       </Router>
