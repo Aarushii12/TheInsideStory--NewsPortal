@@ -24,7 +24,7 @@ export class News extends Component {
     // for addingmloader: 
     this.props.setProgress(0);
 
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=7ca5aa28a57f40e29826367174fa0c6f&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apikey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
 
 
     this.setState({ loading: true })
