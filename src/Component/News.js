@@ -40,7 +40,7 @@ const News = (props) => {
 
   return (
     <div className="container my-3">
-      <h1 className='text-center' style={{ margin: '35px 0px' }}> INSIDE STORY - Top Headlines from {props.category}</h1>
+      <h1 className='text-center' style={{ margin: '80px 0px' }}> INSIDE STORY - Top Headlines from {props.category}</h1>
 
       {loading && <Spinner />}
       <div className="row">
